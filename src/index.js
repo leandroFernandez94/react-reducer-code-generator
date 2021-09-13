@@ -4,7 +4,7 @@ function mapPropNameToActionName(propName, value, prefix = "") {
 
   const propnameSetter = `SET_${actionName}`;
 
-  if (typeof value !== "object") {
+  if (typeof value !== "object" || Array.isArray(value)) {
     return [propnameSetter];
   }
 

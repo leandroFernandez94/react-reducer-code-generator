@@ -72,3 +72,18 @@ describe("when initial state is an object with one level deep properties", () =>
     });
   });
 });
+
+describe("When initial state contains an array property", () => {
+  const initialState = {
+    a: 1,
+    b: [true, false],
+  };
+
+  let [actions] = RRCG(initialState);
+
+  it("should return only one action for the array", () => {
+    expect(actions).toHaveLength(2);
+    expect(actions).toContain("SET_A");
+    expect(actions).toContain("SET_B");
+  });
+});
