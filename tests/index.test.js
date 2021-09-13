@@ -1,5 +1,4 @@
-import { beforeEach } from "@jest/globals";
-import RRCG from "./index";
+import RRCG from "../src";
 
 describe("when state is an empty object", () => {
   const state = {};
