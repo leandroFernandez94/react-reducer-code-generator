@@ -1,0 +1,30 @@
+{
+  "name": "react-reducer-code-generator",
+  "version": "1.0.0",
+  "description": "A simple module to get actions, state and dispatcher functions based on the reducer initial state",
+  "main": "dist/index.js",
+  "scripts": {
+    "start": "npx babel src --watch --out-dir dist",
+    "test": "jest",
+    "build": "npx babel src --out-dir dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/leandroFernandez94/react-reducer-code-generator.git"
+  },
+  "author": "Leandro Fernandez",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/leandroFernandez94/react-reducer-code-generator/issues"
+  },
+  "homepage": "https://github.com/leandroFernandez94/react-reducer-code-generator#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.15.4",
+    "@babel/core": "^7.15.5",
+    "@babel/plugin-transform-modules-commonjs": "^7.15.4",
+    "@babel/preset-env": "^7.15.6",
+    "core-js": "^3.17.3",
+    "jest": "^27.2.0"
+  },
+  "browserslist": "> 0.25%, not dead"
+}
