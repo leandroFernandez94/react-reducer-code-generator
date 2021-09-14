@@ -90,3 +90,47 @@ describe("When initial state contains an array property", () => {
     expect(actions).toContain("SET_B");
   });
 });
+
+describe("when initial state is an object with  deep properties", () => {
+  const initialState = {
+    a: 1,
+    b: 1,
+    c: {
+      d: true,
+      e: false,
+    },
+  };
+  let { actions, reducer } = RRCG(initialState);
+
+  it("should return actions for properties", () => {
+    expect(actions).toHaveLength(5);
+    expect(actions).toContain("SET_A");
+    expect(actions).toContain("SET_B");
+    expect(actions).toContain("SET_C");
+    expect(actions).toContain("SET_C__D");
+    expect(actions).toContain("SET_C__E");
+  });
+
+  describe("and reducer is used to modify an object property", () => {
+    const stateSnapshot = {
+      a: 1,
+      b: 1,
+      c: {
+        d: true,
+        e: false,
+      },
+    };
+    const result = reducer(stateSnapshot, {
+      type: "SET_C",
+      payload: { d: false, e: true },
+    });
+
+    it("should return a new snapshot with that property modified", () => {
+      expect(result).not.toBe(stateSnapshot);
+      expect(result.a).toEqual(1);
+      expect(result.b).toEqual(1);
+      expect(result.c.d).toEqual(false);
+      expect(result.c.e).toEqual(true);
+    });
+  });
+});
