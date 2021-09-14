@@ -15,7 +15,7 @@
     lastProp: "last one",
   }
 
-  const [actions, reducer] = ReactReducerCodeGenerator(initialState)
+  const {actions, reducer} = ReactReducerCodeGenerator(initialState)
 ```
 
 this will provide you with an actions array with the shape of:
@@ -47,13 +47,13 @@ const initialState = {
   lastProp: "last one",
 }
 
-const [generatedActions, generatedReducer] = ReactReducerCodeGenerator(initialState)
+const {actions, reducer} = ReactReducerCodeGenerator(initialState)
 
 export default function MyStatefulComponent() {
-  const [state, dispatch] = useReducer(generatedReducer, initialState)
+  const [state, dispatch] = useReducer(reducer, initialState)
 
   function handleClick() {
-  // SET_PROP1 is provided in the "generatedActions" array
+  // SET_PROP1 is provided in the "actions" array
     dispatch({
       type: 'SET_PROP1',
       payload: !state.prop1

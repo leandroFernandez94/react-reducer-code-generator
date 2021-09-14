@@ -3,7 +3,7 @@ import RRCG from "../src";
 describe("when state is an empty object", () => {
   const state = {};
   it("should only return SET_STATE action", () => {
-    const [actions] = RRCG(state);
+    const { actions } = RRCG(state);
     expect(actions).toHaveLength(1);
     expect(actions[0]).toBe("SET_STATE");
   });
@@ -13,19 +13,19 @@ describe("when state is a primitive value", () => {
   let state = "test";
   it("should only return SET_STATE action", () => {
     let result = RRCG(state);
-    let actions = result[0];
+    let actions = result.actions;
     expect(actions).toHaveLength(1);
     expect(actions[0]).toBe("SET_STATE");
 
     state = 4;
     result = RRCG(state);
-    actions = result[0];
+    actions = result.actions;
     expect(actions).toHaveLength(1);
     expect(actions[0]).toBe("SET_STATE");
 
     state = true;
     result = RRCG(state);
-    actions = result[0];
+    actions = result.actions;
     expect(actions).toHaveLength(1);
     expect(actions[0]).toBe("SET_STATE");
   });
@@ -36,7 +36,7 @@ describe("when initial state is an object with one level deep properties", () =>
     a: 1,
     b: 1,
   };
-  let [actions, reducer] = RRCG(initialState);
+  let { actions, reducer } = RRCG(initialState);
 
   it("should return actions for properties", () => {
     expect(actions).toHaveLength(2);
@@ -79,7 +79,7 @@ describe("When initial state contains an array property", () => {
     b: [true, false],
   };
 
-  let [actions] = RRCG(initialState);
+  let { actions } = RRCG(initialState);
 
   it("should return only one action for the array", () => {
     expect(actions).toHaveLength(2);

@@ -62,9 +62,9 @@ function generateReducerFn(actions) {
 
 function reactReducerCodeGenerator(initialState) {
   const actions = generateActions(initialState);
-  const reducerFn = generateReducerFn(actions);
+  const reducer = generateReducerFn(actions);
 
-  return [actions, reducerFn];
+  return { actions, reducer };
 }
 
 module.exports = reactReducerCodeGenerator;
