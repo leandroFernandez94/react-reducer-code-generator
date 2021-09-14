@@ -85,6 +85,21 @@ export default function MyStatefulComponent() {
     });
   }
 
+  
+  function handleWithCustomReducer() {
+    // you can also provide a reducerHandler property in the dispatch object
+    // this function will receive the current property value and the payload value provided in the 
+    // action
+    // in this example instead of setting the payload value, we add it to the current value:
+    dispatch({
+      type: "SET_ANOTHER_PROP",
+      payload: 2,
+      reducerHandler: (currentValue, payload) => {
+        return currentValue + payload;
+      }
+    });
+  }
+
   return (
     <div className="App">
       <h1>ReactReducerCodeGenerator CodeSandbox</h1>
