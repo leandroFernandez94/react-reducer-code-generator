@@ -43,12 +43,13 @@ function generateReducerFn(actions) {
   const reducers = actions.reduce((acum, actionString) => {
     const path = getPathFromActionString(actionString);
     const actionReducer = (state, payload) => {
+      let newState = { ...state };
       path.reduce((acc, key, i) => {
         if (acc[key] === undefined) acc[key] = {};
         if (i === path.length - 1) acc[key] = payload;
         return acc[key];
-      }, state);
-      return state;
+      }, newState);
+      return newState;
     };
 
     acum[actionString] = actionReducer;

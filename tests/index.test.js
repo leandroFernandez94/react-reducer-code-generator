@@ -52,6 +52,9 @@ describe("when initial state is an object with one level deep properties", () =>
     const result = reducer(stateSnapshot, { type: "SET_A", payload: 45 });
 
     it("should return a new snapshot with that property modified", () => {
+      //result has to be another variable reference, if stateSnapshot is mutated and returned, it wont work wit useReducer
+      expect(result).not.toBe(stateSnapshot);
+
       expect(Object.keys(result)).toHaveLength(2);
       expect(result.a).toEqual(45);
       expect(result.b).toEqual(stateSnapshot.b);
