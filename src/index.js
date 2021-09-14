@@ -42,13 +42,20 @@ function getPathFromActionString(actionString) {
 function generateReducerFn(actions) {
   const reducers = actions.reduce((acum, actionString) => {
     const path = getPathFromActionString(actionString);
-    const actionReducer = (state, payload) => {
+    const actionReducer = (state, payload, reducerHandler) => {
       let newState = { ...state };
+
       path.reduce((acc, key, i) => {
         if (acc[key] === undefined) acc[key] = {};
-        if (i === path.length - 1) acc[key] = payload;
+        if (i === path.length - 1) {
+          const currentValue = acc[key];
+          acc[key] = reducerHandler
+            ? reducerHandler(currentValue, payload)
+            : payload;
+        }
         return acc[key];
       }, newState);
+
       return newState;
     };
 
@@ -56,8 +63,10 @@ function generateReducerFn(actions) {
     return acum;
   }, {});
 
-  return (state, { type, payload }) => {
-    return reducers[type] ? reducers[type](state, payload) : state;
+  return (state, { type, payload, reducerHandler }) => {
+    return reducers[type]
+      ? reducers[type](state, payload, reducerHandler)
+      : state;
   };
 }
 
@@ -68,4 +77,4 @@ function reactReducerCodeGenerator(initialState) {
   return { actions, reducer };
 }
 
-module.exports = reactReducerCodeGenerator;
+export default reactReducerCodeGenerator;

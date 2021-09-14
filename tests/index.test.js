@@ -134,3 +134,41 @@ describe("when initial state is an object with  deep properties", () => {
     });
   });
 });
+
+describe("when we pass a custom reducerHandler", () => {
+  const initialState = {
+    a: 1,
+    b: 1,
+    c: {
+      d: true,
+      e: false,
+    },
+  };
+  let { reducer } = RRCG(initialState);
+
+  const stateSnapshot = {
+    a: 1,
+    b: 1,
+    c: {
+      d: true,
+      e: false,
+    },
+  };
+
+  // example of adding 2 to the current value
+  const result = reducer(stateSnapshot, {
+    type: "SET_A",
+    payload: 2,
+    reducerHandler: (currentAValue, payload) => {
+      return currentAValue + payload;
+    },
+  });
+
+  it("should return a new snapshot with that property modified", () => {
+    expect(result).not.toBe(stateSnapshot);
+    expect(result.a).toEqual(3);
+    expect(result.b).toEqual(1);
+    expect(result.c.d).toEqual(true);
+    expect(result.c.e).toEqual(false);
+  });
+});
